@@ -46,7 +46,7 @@ function UserLogs() {
         columns={columns}
         rowKey="id"
         dataSource={userLogs}
-        loading={userLogs?.length > 0 ? false : true}
+        loading={userLogs ? false : true}
       />
     </Card>
   );

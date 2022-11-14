@@ -226,7 +226,7 @@ function Users() {
         handleCancel={() => setIsUserModalVisible(false)}
         onSubmit={addNewUser}
       />
-      <Table columns={columns} rowKey="id" dataSource={users} />
+      <Table columns={columns} rowKey="id" dataSource={users}/>
     </Card>
   );
 }

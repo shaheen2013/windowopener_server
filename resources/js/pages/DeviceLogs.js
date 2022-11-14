@@ -25,7 +25,7 @@ function DeviceLogs() {
     },
     {
       title: 'Device Alias',
-      dataIndex: 'device_alias',
+      dataIndex: 'alias',
       key: 'device_alias',
     },
     {

@@ -15927,13 +15927,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 var constants = {
-  PUBLIC_URL: 'http://16.162.137.141',
-  HOST_URL: 'http://16.162.137.141/api',
-  //   PUBLIC_URL: 'http://localhost:8000',
-  //   HOST_URL: 'http://localhost:8000/api',
+  PUBLIC_URL: "http://198.211.108.247",
+  HOST_URL: "http://198.211.108.247/api",
+  // PUBLIC_URL: "http://localhost:8000",
+  // HOST_URL: "http://localhost:8000/api",
   headers: {
-    'Content-Type': 'application/json',
-    Accept: 'application/json'
+    "Content-Type": "application/json",
+    Accept: "application/json"
   }
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (constants);
@@ -17500,12 +17500,12 @@ function Reducer() {
       });
 
     case _User_actions__WEBPACK_IMPORTED_MODULE_0__["default"].DELETE_USER_SUCCESS:
-      return _objectSpread(_objectSpread({}, state), {}, {
-        users: state.users.filter(function (user) {
-          return user.id === action.payload.data;
-        }),
+      return {
+        users: _toConsumableArray(state.users.filter(function (user) {
+          return user.id !== action.payload.data;
+        })),
         loader: false
-      });
+      };
 
     case _User_actions__WEBPACK_IMPORTED_MODULE_0__["default"].DELETE_USER_FAILURE:
       return _objectSpread(_objectSpread({}, state), {}, {
@@ -18418,7 +18418,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".auth-logo {\r\n    text-align: center;\r\n    margin: 20px;\r\n}\r\n\r\n.auth-logo img {\r\n    max-width: 350px;\r\n}\r\n\r\n.auth-logo span {\r\n    font-size: 48px;\r\n    font-weight: 700;\r\n}\r\n\r\n.logo {\r\n    height: 72px;\r\n    margin: 16px;\r\n    text-align: center;\r\n}\r\n\r\n.logo-collapsed {\r\n    height: 50px;\r\n    margin: 16px;\r\n    text-align: center;\r\n}\r\n\r\n.logo img {\r\n    width: 72px;\r\n}\r\n\r\n.logo-collapsed img {\r\n    width: 50px;\r\n}\r\n\r\n.header-info {\r\n    /* color: #000; */\r\n    margin: 0 20px;\r\n}\r\n\r\n.header-info span {\r\n    margin-right: 10px;\r\n    font-size: 20px;\r\n}\r\n\r\n.mt-2 {\r\n    margin-top: 2em;\r\n}\r\n\r\n.mb-2 {\r\n    margin-bottom: 2em;\r\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".auth-logo {\n    text-align: center;\n    margin: 20px;\n}\n\n.auth-logo img {\n    max-width: 350px;\n}\n\n.auth-logo span {\n    font-size: 48px;\n    font-weight: 700;\n}\n\n.logo {\n    height: 72px;\n    margin: 16px;\n    text-align: center;\n}\n\n.logo-collapsed {\n    height: 50px;\n    margin: 16px;\n    text-align: center;\n}\n\n.logo img {\n    width: 72px;\n}\n\n.logo-collapsed img {\n    width: 50px;\n}\n\n.header-info {\n    /* color: #000; */\n    margin: 0 20px;\n}\n\n.header-info span {\n    margin-right: 10px;\n    font-size: 20px;\n}\n\n.mt-2 {\n    margin-top: 2em;\n}\n\n.mb-2 {\n    margin-bottom: 2em;\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

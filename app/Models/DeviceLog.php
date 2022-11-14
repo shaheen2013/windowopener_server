@@ -30,11 +30,10 @@ class DeviceLog extends Model
     }
 
     public function getStatusLabelAttribute() {
-        $status_label = $this->status == 0 ? 'Close' : 'Open';
-        return $status_label . ' at ' . date('Y-m-d H:i', strtotime($this->timestamp));
+        return $this->status . ' at ' . date('Y-m-d H:i', strtotime($this->timestamp));
     }
 
     public function getContentAttribute() {
-        return $this->status == 0 ? 'The window is closed' : 'The window is open.';
+        return $this->status == 'Close' ? 'The window is closed' : 'The window is open.';
     }
 }

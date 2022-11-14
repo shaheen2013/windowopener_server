@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Device;
+use App\Models\DeviceLog;
 use Illuminate\Support\Facades\Log;
 
 class DeviceController extends Controller
@@ -43,13 +44,14 @@ class DeviceController extends Controller
         if($request->has('high_temperature'))
             $device->high_temperature = $request->high_temperature;
         $device->user_id = $request->user()->id;
-        $device->status = 'Connected';
+        $device->status = 'Open';
         $device->save();
         return response()->json(['data' => $device]);
     }
 
     public function createByApp(Request $request)
     {
+        Log::info($request);
         $request->validate([
             'device_address' => ['required', 'string', 'max:255', 'unique:devices'],
         ]);
@@ -64,7 +66,7 @@ class DeviceController extends Controller
             $device->country_id = $request->country["id"];
         if($request->has('state'))
             $device->state_id = $request->state["id"];
-        if($request->has('city'))
+        if($request->has('city') && isset($request->city["id"]))
             $device->city_id = $request->city["id"];
         if($request->has('low_temperature'))
             $device->low_temperature = $request->low_temperature;
@@ -74,6 +76,12 @@ class DeviceController extends Controller
         if($request->has('status'))
             $device->status = $request->status;
         $device->save();
+
+        $cmd = 'mosquitto_pub -t /node/0/' . $device->device_address . ' -m "{\"id\":\"' . $device->device_address . '\",\"auto\":1,\"low_temp\":' . $device->low_temperature . ',\"high_temp\":' . $device->high_temperature . '}"';
+        if($device->is_auto == 'No')
+            $cmd = 'mosquitto_pub -t /node/0/' . $device->device_address . ' -m "{\"id\":\"' . $device->device_address . '\",\"auto\":0,\"low_temp\":' . $device->low_temperature . ',\"high_temp\":' . $device->high_temperature . '}"';
+        Log::info("Run this command: " . $cmd);
+        shell_exec($cmd);
 
         $device = Device::find($device->id);
         return response()->json(['data' => $device->makeHidden(['created_at', 'updated_at', 'type', 'creator', 'user_id', 'location', 'country_id', 'state_id', 'city_id'])]);
@@ -88,7 +96,7 @@ class DeviceController extends Controller
             $device->country_id = $request->country["id"];
         if($request->has('state'))
             $device->state_id = $request->state["id"];
-        if($request->has('city'))
+        if($request->has('city') && isset($request->city["id"]))
             $device->city_id = $request->city["id"];
         if($request->has('low_temperature'))
             $device->low_temperature = $request->low_temperature;
@@ -97,6 +105,12 @@ class DeviceController extends Controller
         if($request->has('is_auto'))
             $device->is_auto = $request->is_auto;
         $device->save();
+
+        $cmd = 'mosquitto_pub -t /node/0/' . $device->device_address . ' -m "{\"id\":\"' . $device->device_address . '\",\"auto\":1,\"low_temp\":' . $device->low_temperature . ',\"high_temp\":' . $device->high_temperature . '}"';
+        if($device->is_auto == 'No')
+            $cmd = 'mosquitto_pub -t /node/0/' . $device->device_address . ' -m "{\"id\":\"' . $device->device_address . '\",\"auto\":0,\"low_temp\":' . $device->low_temperature . ',\"high_temp\":' . $device->high_temperature . '}"';
+        Log::info("Run this command: " . $cmd);
+        shell_exec($cmd);
 
         $device = Device::find($id);
         return response()->json(['data' => $device->makeHidden(['created_at', 'updated_at', 'type', 'creator', 'user_id', 'location', 'country_id', 'state_id', 'city_id'])]);
@@ -142,6 +156,7 @@ class DeviceController extends Controller
 
     public function delete($id) {
         Device::destroy($id);
+        DeviceLog::where('device_id', $id)->delete();
         return response()->json(['data' => $id]);
     }
 }

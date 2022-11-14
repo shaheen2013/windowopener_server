@@ -8121,7 +8121,7 @@ function UserLogs() {
       columns: columns,
       rowKey: "id",
       dataSource: userLogs,
-      loading: (userLogs === null || userLogs === void 0 ? void 0 : userLogs.length) > 0 ? false : true
+      loading: userLogs ? false : true
     })
   });
 }

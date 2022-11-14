@@ -8002,7 +8002,7 @@ function Dashboard() {
     key: 'id'
   }, {
     title: 'Device Alias',
-    dataIndex: 'device_alias',
+    dataIndex: 'alias',
     key: 'device_alias'
   }, {
     title: 'DeviceID',

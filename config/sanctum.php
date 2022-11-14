@@ -15,7 +15,7 @@ return [
 
     'stateful' => explode(',', env(
         'SANCTUM_STATEFUL_DOMAINS',
-        '16.162.137.141,localhost:8000,localhost:3000,127.0.0.1,127.0.0.1:8000,::1'
+        '198.211.108.247,localhost:8000,localhost:3000,127.0.0.1,127.0.0.1:8000,::1'
     )),
 
     /*
